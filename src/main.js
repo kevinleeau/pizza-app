@@ -3,7 +3,12 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import { routes } from './router.js'
 import axios from 'axios'
+import { store } from './store/index.js'
+
+// 配置统一根路径，在各个组件使用时需要先引入
 axios.defaults.baseURL = 'https://pizza-app-4b021-default-rtdb.firebaseio.com/'
+// 配置原型名字为http，在各个组件都可以使用，无需再次引入
+Vue.prototype.http = axios
 
 const router = new VueRouter({
   routes,
@@ -25,6 +30,7 @@ Vue.use(VueRouter)
 
 new Vue({
   el: '#app',
+  store,
   router,
   render: h => h(App)
 })

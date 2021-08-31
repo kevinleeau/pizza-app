@@ -10,12 +10,16 @@
              <li><router-link :to="homeLink" class="nav-link">Home</router-link></li>
              <!-- 在rounte.js里定义了路由的名字memuLink -->
              <li><router-link :to="{name: 'menuLink'}" class="nav-link">Menu</router-link></li>
-             <li><router-link :to="{name: 'adminLink'}" class="nav-link">Setting</router-link></li>
+             <li><router-link :to="{name: 'adminLink'}" class="nav-link">Manager</router-link></li>
              <li><router-link :to="{name: 'aboutLink'}" class="nav-link">About</router-link></li>
          </ul>
          <ul class="navbar-nav ml-auto">
-             <li><router-link :to="{name: 'loginLink'}" class="nav-link">Login</router-link></li>
-             <li><router-link :to="{name: 'registerLink'}" class="nav-link">Sign-up</router-link></li>
+             <li><router-link :to="{name: 'loginLink'}" v-show="!isLogin" class="nav-link">Login</router-link></li>
+
+             <li class="nav-link">{{currentUser}}</li>
+             <li><router-link :to="{name: 'loginLink'}" v-show="isLogin" class="nav-link">[Login out]</router-link></li>
+
+             <li><router-link :to="{name: 'registerLink'}" v-show="!isLogin" class="nav-link">Sign-up</router-link></li>
          </ul>
      </nav>
  </header>
@@ -27,7 +31,15 @@ export default {
     return {
       homeLink: '/'
     }
-}
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.currentUser
+    },
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  }
 }
 </script>
 
